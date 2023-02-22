@@ -1,14 +1,11 @@
-import {ShipFactory} from "./ShipFactory.js";
-import {BattleFieldRenderer} from "./BattleFieldRenderer.js";
+import { BattleFieldFactory } from "./BattleFieldFactory.js";
+import { ElementBuilder } from "./ElementBuilder.js";
+import { Config } from "./Config.js";
 
-let battleFieldRenderer = new BattleFieldRenderer();
+const config = new Config();
+const elementBuilder = new ElementBuilder();
+const mainContainer = document.querySelector("#main");
 
-// Будет билдер, который будет строить поле(создавать ячейки и потом передавать их в конструктор при создании поля)
-
-// battleFieldRenderer.render()
-
-let shipFactory = new ShipFactory();
-
-let ship = shipFactory.build(4);
-
-console.log(ship);
+const battleFieldFactory = new BattleFieldFactory(mainContainer, config, elementBuilder);
+battleFieldFactory.render("my");
+battleFieldFactory.render("enemy");
