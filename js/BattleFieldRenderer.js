@@ -1,14 +1,20 @@
-import {BattleField} from "./BattleField.js";
+import { BattleField } from './BattleField.js';
+import { Cell } from './Cell.js';
 
 export class BattleFieldRenderer {
+  constructor() {}
 
-    constructor(){
+  build(lengthOnX, lengthOnY) {
+    let cells = [];
+    for (let i = 0; i < lengthOnX; i++) {
+      for (let j = 0; j < lengthOnY; j++) {
+        cells.push(new Cell(i, j));
+      }
     }
+    return new BattleField(cells);
+  }
 
-    /**
-     * @param {BattleField} battleField
-     */
-    render(battleField) {
-        // тут будет отрисовка верстки боевого поля
-    }
+  render(battleField) {
+    // тут будет отрисовка верстки боевого поля
+  }
 }

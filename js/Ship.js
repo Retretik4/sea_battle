@@ -1,14 +1,14 @@
 export class Ship {
-    _decks = [];
+  _decks = [];
 
-    // /**
-    //  * @param {Object} objectData
-    //  */
-    constructor(decks){
-        this._decks = decks;
-    }
+  // /**
+  //  * @param {Object} objectData
+  //  */
+  constructor(decks) {
+    this._decks = decks;
+  }
 
-    get decks(){
-        return this._decks;
-    }
+  get decks() {
+    return this._decks;
+  }
 }
