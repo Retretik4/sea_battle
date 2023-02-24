@@ -1,22 +1,22 @@
 export class Deck {
-  _died;
+    _died;
 
-  constructor() {
-    this._died = false;
-  }
+    constructor() {
+        this._died = false;
+    }
 
-  get isDied() {
-    return this._died;
-  }
+    get isDied() {
+        return this._died;
+    }
 
-  set died(died) {
-    this._died = died;
-  }
+    set died(died) {
+        this._died = died;
+    }
 
-  // /**
-  //  * @param {Object} objectData
-  //  */
-  // run(objectData = {}){
-  //     this._callback(objectData);
-  // }
+    // /**
+    //  * @param {Object} objectData
+    //  */
+    // run(objectData = {}){
+    //     this._callback(objectData);
+    // }
 }

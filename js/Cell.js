@@ -1,32 +1,32 @@
 export class Cell {
-  _x;
-  _y;
+    _x;
+    _y;
 
-  /**
-   * @param {number} x
-   * @param {number} y
-   */
-  constructor(x, y) {
-    this._x = x;
-    this._y = y;
-  }
+    /**
+     * @param {number} x
+     * @param {number} y
+     */
+    constructor(x, y) {
+        this._x = x;
+        this._y = y;
+    }
 
-  get x() {
-    return this._x;
-  }
+    get x() {
+        return this._x;
+    }
 
-  get y() {
-    return this._y;
-  }
+    get y() {
+        return this._y;
+    }
 
-  render() {
-    return '<div class="cell"></div>';
-  }
+    render() {
+        return '<div class="cell"></div>';
+    }
 
-  // /**
-  //  * @param {Object} objectData
-  //  */
-  // run(objectData = {}){
-  //     this._callback(objectData);
-  // }
+    // /**
+    //  * @param {Object} objectData
+    //  */
+    // run(objectData = {}){
+    //     this._callback(objectData);
+    // }
 }

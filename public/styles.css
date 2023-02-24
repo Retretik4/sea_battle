@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* my-field */
+
+.my-field {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 50%;
+}
+
+/* enemy-field */
+
+.enemy-field {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 50%;
+}
+
+/*  */
+
+.cell {
+    width: 25px;
+    height: 25px;
+    background-color: gray;
+}
+
+.battle-field {
+    width: 350px;
+    height: 350px;
+    background-color: green;
+    position: absolute;
+    left: 80px;
+    top: 80px;
+}

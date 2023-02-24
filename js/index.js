@@ -1,7 +1,8 @@
 import { ShipFactory } from './ShipFactory.js';
-import { BattleFieldRenderer } from './BattleFieldRenderer.js';
+import { BattleFieldFactory } from './BattleFieldFactory.js';
 import { BattleField } from './BattleField.js';
 import { Config } from './Config.js';
+import { Cell } from './Cell.js';
 
 // Будет билдер, который будет строить поле(создавать ячейки и потом передавать их в конструктор при создании поля)
 
@@ -15,8 +16,24 @@ let ship = shipFactory.build(4);
 
 console.log(ship);
 
-let battleFieldRenderer = new BattleFieldRenderer();
+let battleFieldFactory = new BattleFieldFactory();
 
-let battleField = battleFieldRenderer.build(config.lengthOnX, config.lengthOnY);
+let battleField = battleFieldFactory.build(config.lengthOnX, config.lengthOnY);
 
 console.log(battleField);
+
+let cell = new Cell();
+let battleFieldAll = new BattleField();
+
+// let der = (document.body.innerHTML = 'Привет');
+
+// let der1 = document.createElement('span');
+// let battleFieldRender = (document.body.innerHTML = battleFieldAll.render());
+
+// const content = element.innerHTML;
+// element.innerHTML = htmlString;
+
+let mainElement = document.querySelector('#main');
+mainElement.innerHTML = battleFieldAll.render();
+
+new BattleFieldFactory(true, 'fff');
