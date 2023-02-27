@@ -1,0 +1,68 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+.my-battle-field {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: flex-start;
+    align-items: flex-start; */
+    height: 387px;
+    width: 387px;
+    background-color: rgb(235, 252, 246);
+}
+
+.allcell-info {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(235, 252, 246);
+}
+
+.cell-info {
+    height: 35px;
+    width: 35px;
+    font-size: 15px;
+    text-align: center;
+}
+
+.cell-abc {
+    display: list-item;
+    list-style-position: inside;
+    list-style-type: upper-alpha;
+}
+
+.cell-num {
+    display: list-item;
+    list-style-position: inside;
+    list-style-type: decimal;
+}
+
+.horizontal {
+    height: 35px;
+    width: 350px;
+}
+
+.vertical {
+    height: 350px;
+    width: 35px;
+}
+
+.allcell {
+    display: flex;
+    flex-wrap: wrap;
+    height: 350px;
+    width: 350px;
+    border: 1px solid black;
+    background-color: aquamarine;
+}
+
+.cell {
+    height: 33px;
+    width: 33px;
+    border: 1px solid rgb(52, 146, 146);
+}
