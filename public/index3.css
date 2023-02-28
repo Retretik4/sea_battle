@@ -10,8 +10,6 @@
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: flex-start;
-    align-items: flex-start; */
     height: 387px;
     width: 387px;
     background-color: rgb(235, 252, 246);
@@ -30,26 +28,34 @@
     text-align: center;
 }
 
-.cell-abc {
-    display: list-item;
-    list-style-position: inside;
-    list-style-type: upper-alpha;
-}
-
-.cell-num {
-    display: list-item;
-    list-style-position: inside;
-    list-style-type: decimal;
-}
-
 .horizontal {
     height: 35px;
     width: 350px;
+    counter-reset: abc;
+}
+
+.cell-abc {
+    counter-increment: abc;
+    margin: 10px 0 0 0;
+}
+
+.cell-abc::before {
+    content: counter(abc, upper-alpha);
 }
 
 .vertical {
     height: 350px;
     width: 35px;
+    counter-reset: number 0;
+}
+
+.cell-num {
+    counter-increment: number;
+    margin: 10px 0 -10px 0;
+}
+
+.cell-num::before {
+    content: counter(number);
 }
 
 .allcell {
