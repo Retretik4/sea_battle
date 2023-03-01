@@ -1,0 +1,37 @@
+.battle-field {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    border: 1px solid black;
+    max-width: 396px;
+}
+
+.section {
+    float: left;
+}
+
+.horizontal {
+    float: left;
+}
+
+.info-cell {
+    width: 35px;
+    height: 35px;
+    border-right: 1px solid red;
+    border-bottom: 1px solid red;
+    background-color: antiquewhite;
+    text-align: center;
+}
+
+.info-cell span {
+    padding: 9px;
+    display: block;
+}
+
+.cell {
+    width: 35px;
+    height: 35px;
+    border-right: 1px solid green;
+    border-bottom: 1px solid green;
+    background-color: antiquewhite;
+}
