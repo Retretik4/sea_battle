@@ -36,4 +36,10 @@ let battleFieldAll = new BattleField();
 let mainElement = document.querySelector('#main');
 mainElement.innerHTML = battleFieldAll.render();
 
-new BattleFieldFactory(true, 'fff');
+let battleFieldFactory1 = new BattleFieldFactory();
+let elementButtleField = document.querySelector('#my');
+elementButtleField.innerHTML = battleFieldFactory1.render(
+    config.lengthOnX,
+    config.lengthOnY,
+    config.cellSize
+);

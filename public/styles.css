@@ -1,40 +1,82 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-/* my-field */
+/* my-battle-field */
 
-.my-field {
-    margin: 0;
-    padding: 0;
-    width: 50%;
-    height: 50%;
-}
-
-/* enemy-field */
-
-.enemy-field {
-    margin: 0;
-    padding: 0;
-    width: 50%;
-    height: 50%;
-}
-
-/*  */
-
-.cell {
-    width: 25px;
-    height: 25px;
-    background-color: gray;
-}
-
-.battle-field {
-    width: 350px;
-    height: 350px;
-    background-color: green;
+.my-battle-field {
     position: absolute;
-    left: 80px;
-    top: 80px;
+    top: 20px;
+    left: 20px;
+    display: grid;
+    margin: 0;
+    grid-template: repeat(11, 35px) / repeat(11, 35px);
+}
+
+.my-battle-field > div:nth-child(1) {
+    display: grid;
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+    background-color: rgb(235, 252, 246);
+}
+
+.my-battle-field > div:nth-child(2) {
+    display: grid;
+    grid-column: 1 / 2;
+    grid-row: 2 / -1;
+    background-color: rgb(235, 252, 246);
+}
+
+.my-battle-field > div:nth-child(3) {
+    display: grid;
+    grid-column: 2 / -1;
+    grid-row: 2 / -1;
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+/* abc */
+
+.my-battle-field-abc {
+    grid-template: repeat(1, 35px) / repeat(10, 35px);
+    counter-reset: abc;
+}
+
+.my-battle-field-abc-cell {
+    counter-increment: abc;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 25%;
+}
+
+.my-battle-field-abc-cell::before {
+    content: counter(abc, upper-alpha);
+}
+
+/* num */
+
+.my-battle-field-num {
+    grid-template: repeat(10, 35px) / repeat(1, 35px);
+    counter-increment: number 0;
+}
+
+.my-battle-field-num-cell {
+    counter-increment: number;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 25%;
+}
+
+.my-battle-field-num-cell::before {
+    content: counter(number);
+}
+
+/* cell */
+
+.my-battle-field-allcell {
+    grid-template: repeat(10, 35px) / repeat(10, 35px);
+}
+
+.my-battle-field-cell {
+    border: 1px solid rgb(52, 146, 146);
 }

@@ -20,7 +20,7 @@ export class Cell {
     }
 
     render() {
-        return '<div class="cell"></div>';
+        return '<div class="my-battle-field-cell"></div>';
     }
 
     // /**
