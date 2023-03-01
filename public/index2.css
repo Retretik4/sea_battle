@@ -1,3 +1,9 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+/* my-battle-field */
+
 .my-battle-field {
     position: absolute;
     top: 20px;
@@ -29,20 +35,43 @@
     border: 1px solid black;
 }
 
+/* abc */
+
 .my-battle-field-abc {
     grid-template: repeat(1, 35px) / repeat(10, 35px);
+    counter-reset: abc;
 }
 
-.my-battle-field-abc-cell,
-.my-battle-field-num-cell {
+.my-battle-field-abc-cell {
+    counter-increment: abc;
     font-size: 20px;
     text-align: center;
-    padding-top: 10%;
+    padding-top: 25%;
 }
+
+.my-battle-field-abc-cell::before {
+    content: counter(abc, upper-alpha);
+}
+
+/* num */
 
 .my-battle-field-num {
     grid-template: repeat(10, 35px) / repeat(1, 35px);
+    counter-increment: number 0;
 }
+
+.my-battle-field-num-cell {
+    counter-increment: number;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 25%;
+}
+
+.my-battle-field-num-cell::before {
+    content: counter(number);
+}
+
+/* cell */
 
 .my-battle-field-allcell {
     grid-template: repeat(10, 35px) / repeat(10, 35px);
