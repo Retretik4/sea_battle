@@ -1,5 +1,5 @@
 export class Config {
-    lengthOnX = 12;
-    lengthOnY = 18;
+    lengthOnX = 15;
+    lengthOnY = 10;
     cellSize = 30;
 }

@@ -6,8 +6,6 @@ import { Cell } from './Cell.js';
 
 // Будет билдер, который будет строить поле(создавать ячейки и потом передавать их в конструктор при создании поля)
 
-// battleFieldRenderer.render()
-
 let config = new Config();
 
 let shipFactory = new ShipFactory();
@@ -18,28 +16,33 @@ console.log(ship);
 
 let battleFieldFactory = new BattleFieldFactory();
 
-let battleField = battleFieldFactory.build(config.lengthOnX, config.lengthOnY);
+let battleFieldBuild = battleFieldFactory.build(
+    config.lengthOnX,
+    config.lengthOnY
+);
 
-console.log(battleField);
+console.log(battleFieldBuild);
 
 let cell = new Cell();
-let battleFieldAll = new BattleField();
+let battleField = new BattleField();
 
-// let der = (document.body.innerHTML = 'Привет');
-
-// let der1 = document.createElement('span');
-// let battleFieldRender = (document.body.innerHTML = battleFieldAll.render());
-
-// const content = element.innerHTML;
-// element.innerHTML = htmlString;
-
-let mainElement = document.querySelector('#main');
-mainElement.innerHTML = battleFieldAll.render();
-
-let battleFieldFactory1 = new BattleFieldFactory();
 let elementButtleField = document.querySelector('#my');
-elementButtleField.innerHTML = battleFieldFactory1.render(
-    config.lengthOnX,
+elementButtleField.innerHTML = battleField.render(config.lengthOnX, config.lengthOnY, config.cellSize);
+
+let d1 = document.querySelector('div.my-battle-field-abc');
+d1.innerHTML = battleFieldFactory.buildDiv(
     config.lengthOnY,
-    config.cellSize
+    battleFieldFactory.buildClassInDiv('my-battle-field-abc-cell')
+);
+
+let d2 = document.querySelector('div.my-battle-field-num');
+d2.innerHTML = battleFieldFactory.buildDiv(
+    config.lengthOnX,
+    battleFieldFactory.buildClassInDiv('my-battle-field-num-cell')
+);
+
+let d3 = document.querySelector('div.my-battle-field-allcell');
+d3.innerHTML = battleFieldFactory.buildDiv(
+    config.lengthOnX * config.lengthOnY,
+    cell.render()
 );
