@@ -20,13 +20,10 @@ export class Cell {
     }
 
     render() {
-        return `<div class="my-battle-field-cell"></div>`;
+        let cell = document.createElement('div');
+        cell.classList.add("battle-field-cell");
+        cell.setAttribute('x', this.x);
+        cell.setAttribute('y', this.y);
+        return cell;
     }
-
-    // /**
-    //  * @param {Object} objectData
-    //  */
-    // run(objectData = {}){
-    //     this._callback(objectData);
-    // }
 }

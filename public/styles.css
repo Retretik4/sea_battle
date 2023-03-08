@@ -4,7 +4,7 @@
 
 /* my-battle-field */
 
-.my-battle-field {
+.battle-field {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -13,21 +13,21 @@
     grid-template: repeat(11, 35px) / repeat(11, 35px);
 }
 
-.my-battle-field > div:nth-child(1) {
+.battle-field > div:nth-child(1) {
     display: grid;
     grid-column: 2 / -1;
     grid-row: 1 / 2;
     background-color: rgb(235, 252, 246);
 }
 
-.my-battle-field > div:nth-child(2) {
+.battle-field > div:nth-child(2) {
     display: grid;
     grid-column: 1 / 2;
     grid-row: 2 / -1;
     background-color: rgb(235, 252, 246);
 }
 
-.my-battle-field > div:nth-child(3) {
+.battle-field > div:nth-child(3) {
     display: grid;
     grid-column: 2 / -1;
     grid-row: 2 / -1;
@@ -37,46 +37,46 @@
 
 /* abc */
 
-.my-battle-field-abc {
+.battle-field-abc {
     grid-template: repeat(1, 35px) / repeat(10, 35px);
     counter-reset: abc;
 }
 
-.my-battle-field-abc-cell {
+.battle-field-abc-cell {
     counter-increment: abc;
     font-size: 20px;
     text-align: center;
     padding-top: 25%;
 }
 
-.my-battle-field-abc-cell::before {
+.battle-field-abc-cell::before {
     content: counter(abc, upper-alpha);
 }
 
 /* num */
 
-.my-battle-field-num {
+.battle-field-num {
     grid-template: repeat(10, 35px) / repeat(1, 35px);
     counter-increment: number 0;
 }
 
-.my-battle-field-num-cell {
+.battle-field-num-cell {
     counter-increment: number;
     font-size: 20px;
     text-align: center;
     padding-top: 25%;
 }
 
-.my-battle-field-num-cell::before {
+.battle-field-num-cell::before {
     content: counter(number);
 }
 
 /* cell */
 
-.my-battle-field-allcell {
+.battle-field-allcell {
     grid-template: repeat(10, 35px) / repeat(10, 35px);
 }
 
-.my-battle-field-cell {
+.battle-field-cell {
     border: 1px solid rgb(52, 146, 146);
 }

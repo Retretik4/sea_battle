@@ -1,40 +1,46 @@
 import { BattleField } from './BattleField.js';
+import { Config } from './Config.js';
 import { Cell } from './Cell.js';
+import {DivCreator} from "./DivCreator.js";
 
 export class BattleFieldFactory {
-    _lengthOnX;
-    _lengthOnY;
+    _config;
+    _divCreator;
 
     /**
-     * @param {number} lengthOnX
-     * @param {number} lengthOnY
+     * @param {DivCreator} divCreator
+     * @param {Config} config
      */
-    constructor(lengthOnX, lengthOnY) {
-        this._lengthOnX = lengthOnX;
-        this._lengthOnY = lengthOnY;
+    constructor(config, divCreator) {
+        this._config = config;
+        this._divCreator = divCreator;
     }
 
-    build(lengthOnX, lengthOnY) {
+    get config() {
+        return this._config;
+    }
+
+    get divCreator() {
+        return this._divCreator;
+    }
+
+    /**
+     * @params {selectors} idName
+     */
+    render(idName) {
         let cells = [];
-        for (let i = 0; i < lengthOnX; i++) {
-            for (let j = 0; j < lengthOnY; j++) {
-                cells.push(new Cell(i, j));
+        for(let i = 0; i < this.config.lengthOnX; i++) {
+            for(let j = 0; j < this.config.lengthOnY; j++){
+                cells.push(new Cell(i,j));
             }
-        }
-        return new BattleField(cells);
-    }
+        };
+        let renderBattleField = (new BattleField(cells, this.divCreator, this.config)).render();
 
-    buildDiv(num, strDiv) {
-        let str = ``;
-        for (let i = 0; i < num; i++) {
-            str = str + strDiv;
-        }
-        return str;
-    }
+        let dd = document.createElement('div');
+        dd.setAttribute('id', idName);
+        dd.appendChild(renderBattleField);
 
-    buildClassInDiv(divRepeat) {
-        return `<div class="${divRepeat}"></div>`;
+        let elementBattleField = document.querySelector('#main');
+        return elementBattleField.append(dd);
     }
-
-    render() {}
 }
