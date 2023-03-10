@@ -1,9 +1,10 @@
 import {BattleFieldFactory} from "./BattleFieldFactory.js";
-import {DivCreator} from "./DivCreator.js";
+import {ElementBuilder} from "./ElementBuilder.js";
 import {Config} from "./Config.js";
 
 let config = new Config();
-let divCreator = new DivCreator();
+let elementBuilder = new ElementBuilder();
 
-(new BattleFieldFactory(config, divCreator)).render('my');
-(new BattleFieldFactory(config, divCreator)).render('enemy');
+let battleFieldFactory = new BattleFieldFactory('#main', config, elementBuilder);
+battleFieldFactory.render('my');
+battleFieldFactory.render('enemy');

@@ -2,10 +2,35 @@
     font-family: Arial, sans-serif;
 }
 
-/* my-battle-field */
+#main {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    height: 300px;
+    width: 700px;
+    grid-template: repeat(1, 100%) / repeat(2, 50%);
+}
+
+#my, #enemy {
+    display: grid;
+    background-color: #dfeec8;
+    margin: 0;
+}
+
+#my {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+#enemy {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/* battle-field */
 
 .battle-field {
-    position: absolute;
+    position: relative;
     top: 20px;
     left: 20px;
     display: grid;
@@ -44,9 +69,9 @@
 
 .battle-field-abc-cell {
     counter-increment: abc;
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
-    padding-top: 25%;
+    padding-top: 10%;
 }
 
 .battle-field-abc-cell::before {
@@ -62,9 +87,9 @@
 
 .battle-field-num-cell {
     counter-increment: number;
-    font-size: 20px;
+    font-size: 15px;
     text-align: center;
-    padding-top: 25%;
+    padding-top: 10%;
 }
 
 .battle-field-num-cell::before {
