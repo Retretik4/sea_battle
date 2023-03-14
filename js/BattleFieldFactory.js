@@ -49,8 +49,6 @@ export class BattleFieldFactory {
             .build();
 
         elementPlayerName.appendChild(battleField);
-
-        const elementBattleField = this.mainContainer;
-        elementBattleField.append(elementPlayerName);
+        this.mainContainer.append(elementPlayerName);
     }
 }
