@@ -31,6 +31,9 @@ export class BattleFieldFactory {
         return this._elementBuilder;
     }
 
+    /**
+     * @param {string} playerName
+     */
     render(playerName) {
         const cells = [];
         for (let i = 0; i < this.config.lengthOnY; i++) {
@@ -40,14 +43,14 @@ export class BattleFieldFactory {
         }
         const battleField = (new BattleField(cells, this.elementBuilder, this.config)).create();
 
-        const battleFieldId = this.elementBuilder
+        const elementPlayerName = this.elementBuilder
             .createElement()
             .setIdName(playerName)
             .build();
 
-        battleFieldId.appendChild(battleField);
+        elementPlayerName.appendChild(battleField);
 
-        const elementBattleField = this.elementBuilder;
-        elementBattleField.append(battleFieldId);
+        const elementBattleField = this.mainContainer;
+        elementBattleField.append(elementPlayerName);
     }
 }
