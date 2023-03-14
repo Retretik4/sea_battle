@@ -5,17 +5,14 @@ import { Config } from "./Config.js";
 export class BattleField {
     _cells = [];
     _config;
-    _elementBuilder;
 
     /**
      * @param {Cell[]} cells
-     * @param {ElementBuilder} elementBuilder
      * @param {Config} config
      */
-    constructor(cells, elementBuilder, config) {
+    constructor(cells, config) {
         this._cells = cells;
         this._config = config;
-        this._elementBuilder = elementBuilder;
     }
 
     get cells() {
@@ -26,49 +23,45 @@ export class BattleField {
         return this._config;
     }
 
-    get elementBuilder() {
-        return this._elementBuilder;
-    }
-
     /**
      * @returns {HTMLElement}
      */
     create() {
         const cssText = `grid-template: repeat(${this.config.lengthOnY + 1}, ${this.config.cellSize}px) / repeat(${this.config.lengthOnX + 1}, ${this.config.cellSize}px)`;
-        const battleField = this.elementBuilder
+        const battleField = ElementBuilder
             .createElement()
             .setClassName("battle-field")
             .setCssText(cssText)
             .build();
 
         const cssTextAbc = `grid-template: repeat(1, ${this.config.cellSize}px) / repeat(${this.config.lengthOnX}, ${this.config.cellSize}px)`;
-        const battleFieldAbc = this.elementBuilder
+        const battleFieldAbc = ElementBuilder
             .createElement()
             .setClassName("battle-field-abc")
             .setCssText(cssTextAbc)
             .build();
         for (let i = 0; i < this.config.lengthOnX; i++) {
-            battleFieldAbc.appendChild(this.elementBuilder
+            battleFieldAbc.appendChild(ElementBuilder
                 .createElement()
                 .setClassName("battle-field-abc-cell")
                 .build());
         }
 
         const cssTextNum = `grid-template: repeat(${this.config.lengthOnY}, ${this.config.cellSize}px) / repeat(1, ${this.config.cellSize}px`;
-        const battleFieldNum = this.elementBuilder
+        const battleFieldNum = ElementBuilder
             .createElement()
             .setClassName("battle-field-num")
             .setCssText(cssTextNum)
             .build();
         for (let i = 0; i < this.config.lengthOnY; i++) {
-            battleFieldNum.appendChild(this.elementBuilder
+            battleFieldNum.appendChild(ElementBuilder
                 .createElement()
                 .setClassName("battle-field-num-cell")
                 .build());
         }
 
         const cssTextCell = `grid-template: repeat(${this.config.lengthOnY}, ${this.config.cellSize}px) / repeat(${this.config.lengthOnX}, ${this.config.cellSize}px)`;
-        const battleFieldCells = this.elementBuilder
+        const battleFieldCells = ElementBuilder
             .createElement()
             .setClassName("battle-field-allcell")
             .setCssText(cssTextCell)

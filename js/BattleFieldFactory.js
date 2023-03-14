@@ -2,21 +2,19 @@ import { BattleField } from "./BattleField.js";
 import { Config } from "./Config.js";
 import { Cell } from "./Cell.js";
 import { ElementBuilder } from "./ElementBuilder.js";
+import { Coordinate } from "./Coordinate.js";
 
 export class BattleFieldFactory {
     _mainContainer;
     _config;
-    _elementBuilder;
 
     /**
      * @param {HTMLElement} mainContainer
      * @param {Config} config
-     * @param {ElementBuilder} elementBuilder
      */
-    constructor(mainContainer, config, elementBuilder) {
+    constructor(mainContainer, config) {
         this._mainContainer = mainContainer;
         this._config = config;
-        this._elementBuilder = elementBuilder;
     }
 
     get mainContainer() {
@@ -27,10 +25,6 @@ export class BattleFieldFactory {
         return this._config;
     }
 
-    get elementBuilder() {
-        return this._elementBuilder;
-    }
-
     /**
      * @param {string} playerName
      */
@@ -38,12 +32,12 @@ export class BattleFieldFactory {
         const cells = [];
         for (let i = 0; i < this.config.lengthOnY; i++) {
             for (let j = 0; j < this.config.lengthOnX; j++) {
-                cells.push(new Cell(i, j, this.elementBuilder));
+                cells.push(new Cell(new Coordinate(i, j)));
             }
         }
-        const battleField = (new BattleField(cells, this.elementBuilder, this.config)).create();
+        const battleField = (new BattleField(cells, this.config)).create();
 
-        const elementPlayerName = this.elementBuilder
+        const elementPlayerName = ElementBuilder
             .createElement()
             .setIdName(playerName)
             .build();
