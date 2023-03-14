@@ -2,6 +2,14 @@
     font-family: Arial, sans-serif;
 }
 
+.ship {
+    margin: 0;
+    padding: 0;
+    background-color: red;
+    height: 20px;
+    width: 20px;
+}
+
 #main {
     display: grid;
     margin: 0;
