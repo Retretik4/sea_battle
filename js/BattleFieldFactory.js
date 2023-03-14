@@ -1,26 +1,26 @@
-import { BattleField } from './BattleField.js';
-import { Config } from './Config.js';
-import { Cell } from './Cell.js';
-import {ElementBuilder} from "./ElementBuilder.js";
+import { BattleField } from "./BattleField.js";
+import { Config } from "./Config.js";
+import { Cell } from "./Cell.js";
+import { ElementBuilder } from "./ElementBuilder.js";
 
 export class BattleFieldFactory {
-    _id;
+    _mainContainer;
     _config;
     _elementBuilder;
 
     /**
-     * @param {string} id
+     * @param {HTMLElement} mainContainer
      * @param {Config} config
      * @param {ElementBuilder} elementBuilder
      */
-    constructor(id, config, elementBuilder) {
-        this._id = id;
+    constructor(mainContainer, config, elementBuilder) {
+        this._mainContainer = mainContainer;
         this._config = config;
         this._elementBuilder = elementBuilder;
     }
 
-    get id() {
-        return document.querySelector(this._id);
+    get mainContainer() {
+        return this._mainContainer;
     }
 
     get config() {
@@ -31,23 +31,23 @@ export class BattleFieldFactory {
         return this._elementBuilder;
     }
 
-    render(idName) {
-        let cells = [];
-        for(let i = 0; i < this.config.lengthOnY; i++) {
-            for(let j = 0; j < this.config.lengthOnX; j++){
-                cells.push(new Cell(i,j, this.elementBuilder));
+    render(playerName) {
+        const cells = [];
+        for (let i = 0; i < this.config.lengthOnY; i++) {
+            for (let j = 0; j < this.config.lengthOnX; j++) {
+                cells.push(new Cell(i, j, this.elementBuilder));
             }
         }
-        let renderBattleField = (new BattleField(cells, this.elementBuilder, this.config)).render();
+        const battleField = (new BattleField(cells, this.elementBuilder, this.config)).create();
 
-        let battleFieldId = this.elementBuilder
+        const battleFieldId = this.elementBuilder
             .createElement()
-            .setIdName(idName)
+            .setIdName(playerName)
             .build();
 
-        battleFieldId.appendChild(renderBattleField);
+        battleFieldId.appendChild(battleField);
 
-        let elementBattleField = this.id;
+        const elementBattleField = this.elementBuilder;
         elementBattleField.append(battleFieldId);
     }
 }

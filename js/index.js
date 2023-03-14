@@ -1,10 +1,15 @@
-import {BattleFieldFactory} from "./BattleFieldFactory.js";
-import {ElementBuilder} from "./ElementBuilder.js";
-import {Config} from "./Config.js";
+import { BattleFieldFactory } from "./BattleFieldFactory.js";
+import { ElementBuilder } from "./ElementBuilder.js";
+import { Config } from "./Config.js";
+import { ShipFactory } from "./ShipFactory.js";
 
-let config = new Config();
-let elementBuilder = new ElementBuilder();
+const config = new Config();
+const elementBuilder = new ElementBuilder();
+const mainContainer = document.querySelector("#main");
 
-let battleFieldFactory = new BattleFieldFactory('#main', config, elementBuilder);
-battleFieldFactory.render('my');
-battleFieldFactory.render('enemy');
+const battleFieldFactory = new BattleFieldFactory(mainContainer, config, elementBuilder);
+battleFieldFactory.render("my");
+battleFieldFactory.render("enemy");
+
+const shipFactory = new ShipFactory();
+shipFactory.build(4);

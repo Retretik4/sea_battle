@@ -1,6 +1,6 @@
-import {Cell} from "./Cell.js";
-import {ElementBuilder} from "./ElementBuilder.js";
-import {Config} from "./Config.js";
+import { Cell } from "./Cell.js";
+import { ElementBuilder } from "./ElementBuilder.js";
+import { Config } from "./Config.js";
 
 export class BattleField {
     _cells = [];
@@ -8,7 +8,7 @@ export class BattleField {
     _elementBuilder;
 
     /**
-     * @param {{Cell}[]} cells
+     * @param {Cell[]} cells
      * @param {ElementBuilder} elementBuilder
      * @param {Config} config
      */
@@ -33,7 +33,7 @@ export class BattleField {
     /**
      * @returns {HTMLElement}
      */
-    render() {
+    create() {
         let cssText = `grid-template: repeat(${this.config.lengthOnY + 1}, ${this.config.cellSize}px) / repeat(${this.config.lengthOnX + 1}, ${this.config.cellSize}px)`;
         let battleField = this.elementBuilder
             .createElement()
