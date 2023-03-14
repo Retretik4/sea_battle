@@ -4,7 +4,7 @@ export class ElementBuilder {
     /**
      * @returns {MyElement}
      */
-    createElement() {
+    static createElement() {
         return new MyElement();
     }
 }
