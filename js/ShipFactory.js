@@ -1,17 +1,15 @@
-import {Ship} from "./Ship.js";
-import {Deck} from "./Deck.js";
+import { Ship } from './Ship.js';
+import { Deck } from './Deck.js';
 
 export class ShipFactory {
-
-    constructor(){
-    }
+    constructor() {}
 
     /**
      * @param {number} deckCnt
      */
-    build(deckCnt){
+    build(deckCnt) {
         let decks = [];
-        for (let i = 0; i < deckCnt; i++ ) {
+        for (let i = 0; i < deckCnt; i++) {
             decks.push(new Deck());
         }
 

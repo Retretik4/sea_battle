@@ -1,16 +1,16 @@
 export class Deck {
     _died;
 
-    constructor(){
+    constructor() {
         this._died = false;
     }
 
-    get isDied(){
+    get isDied() {
         return this._died;
     }
 
-    set died(died){
-        this._died = died ;
+    set died(died) {
+        this._died = died;
     }
 
     // /**

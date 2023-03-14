@@ -1,0 +1,107 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+#main {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    height: 300px;
+    width: 700px;
+    grid-template: repeat(1, 100%) / repeat(2, 50%);
+}
+
+#my, #enemy {
+    display: grid;
+    background-color: #dfeec8;
+    margin: 0;
+}
+
+#my {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+#enemy {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/* battle-field */
+
+.battle-field {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    display: grid;
+    margin: 0;
+    grid-template: repeat(11, 35px) / repeat(11, 35px);
+}
+
+.battle-field > div:nth-child(1) {
+    display: grid;
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+    background-color: rgb(235, 252, 246);
+}
+
+.battle-field > div:nth-child(2) {
+    display: grid;
+    grid-column: 1 / 2;
+    grid-row: 2 / -1;
+    background-color: rgb(235, 252, 246);
+}
+
+.battle-field > div:nth-child(3) {
+    display: grid;
+    grid-column: 2 / -1;
+    grid-row: 2 / -1;
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+/* abc */
+
+.battle-field-abc {
+    grid-template: repeat(1, 35px) / repeat(10, 35px);
+    counter-reset: abc;
+}
+
+.battle-field-abc-cell {
+    counter-increment: abc;
+    font-size: 15px;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.battle-field-abc-cell::before {
+    content: counter(abc, upper-alpha);
+}
+
+/* num */
+
+.battle-field-num {
+    grid-template: repeat(10, 35px) / repeat(1, 35px);
+    counter-increment: number 0;
+}
+
+.battle-field-num-cell {
+    counter-increment: number;
+    font-size: 15px;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.battle-field-num-cell::before {
+    content: counter(number);
+}
+
+/* cell */
+
+.battle-field-allcell {
+    grid-template: repeat(10, 35px) / repeat(10, 35px);
+}
+
+.battle-field-cell {
+    border: 1px solid rgb(52, 146, 146);
+}

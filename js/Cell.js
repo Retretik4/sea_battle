@@ -1,14 +1,19 @@
+import {ElementBuilder} from "./ElementBuilder.js";
+
 export class Cell {
     _x;
     _y;
+    _elementBuilder;
 
     /**
      * @param {number} x
      * @param {number} y
+     * @param {ElementBuilder} elementBuilder
      */
-    constructor(x, y){
+    constructor(x, y, elementBuilder) {
         this._x = x;
         this._y = y;
+        this._elementBuilder = elementBuilder;
     }
 
     get x() {
@@ -19,12 +24,20 @@ export class Cell {
         return this._y;
     }
 
+    get elementBuilder() {
+        return this._elementBuilder;
+    }
 
-
-    // /**
-    //  * @param {Object} objectData
-    //  */
-    // run(objectData = {}){
-    //     this._callback(objectData);
-    // }
+    /**
+     * @returns {HTMLElement}
+     */
+    create() {
+        let cell = this.elementBuilder
+            .createElement()
+            .setClassName('battle-field-cell')
+            .build();
+        cell.setAttribute('x', this.x);
+        cell.setAttribute('y', this.y);
+        return cell;
+    }
 }
