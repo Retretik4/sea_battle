@@ -1,4 +1,4 @@
-import {MyElement} from "./MyElement.js";
+import { MyElement } from "./MyElement.js";
 
 export class ElementBuilder {
     /**

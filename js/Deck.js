@@ -12,11 +12,4 @@ export class Deck {
     set died(died) {
         this._died = died;
     }
-
-    // /**
-    //  * @param {Object} objectData
-    //  */
-    // run(objectData = {}){
-    //     this._callback(objectData);
-    // }
 }
