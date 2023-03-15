@@ -1,14 +1,14 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
     },
     "extends": ["airbnb-base", "plugin:sonarjs/recommended", "plugin:jsdoc/recommended"],
     "plugins": ["sonarjs", "jsdoc"],
     "overrides": [],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
     },
     "rules": {
         "quotes": ["error", "double"],
@@ -24,5 +24,5 @@ module.exports = {
         // jsdoc
         "jsdoc/require-returns-description": 0,
         "jsdoc/require-param-description": 0,
-    }
-}
+    },
+};

@@ -1,5 +1,5 @@
 export class MyElement {
-    _tagName = 'div';
+    _tagName = "div";
     _classNames = [];
     _idName;
     _cssText;
@@ -8,28 +8,28 @@ export class MyElement {
      * @returns {string}
      */
     get tagName() {
-        return this._tagName
+        return this._tagName;
     }
 
     /**
      * @returns {string[]}
      */
     get classNames() {
-        return this._classNames
+        return this._classNames;
     }
 
     /**
      * @returns {string}
      */
     get idName() {
-        return this._idName
+        return this._idName;
     }
 
     /**
      * @returns {string}
      */
     get cssText() {
-        return this._cssText
+        return this._cssText;
     }
 
     /**
@@ -72,7 +72,7 @@ export class MyElement {
      * @returns {HTMLElement}
      */
     build() {
-        let element = document.createElement(this.tagName);
+        const element = document.createElement(this.tagName);
         this.idName && (element.id = this.idName);
         this.cssText && (element.style.cssText = this.cssText);
         this.classNames.forEach(className => element.classList.add(className));

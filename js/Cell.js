@@ -1,4 +1,4 @@
-import {ElementBuilder} from "./ElementBuilder.js";
+import { ElementBuilder } from "./ElementBuilder.js";
 
 export class Cell {
     _x;
@@ -32,12 +32,12 @@ export class Cell {
      * @returns {HTMLElement}
      */
     create() {
-        let cell = this.elementBuilder
+        const cell = this.elementBuilder
             .createElement()
-            .setClassName('battle-field-cell')
+            .setClassName("battle-field-cell")
             .build();
-        cell.setAttribute('x', this.x);
-        cell.setAttribute('y', this.y);
+        cell.setAttribute("x", this.x);
+        cell.setAttribute("y", this.y);
         return cell;
     }
 }
