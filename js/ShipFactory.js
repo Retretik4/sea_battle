@@ -2,9 +2,9 @@ import { Ship } from "./Ship.js";
 import { Deck } from "./Deck.js";
 
 export class ShipFactory {
-    // eslint-disable-next-line jsdoc/require-returns
     /**
      * @param {number} deckCnt
+     * @returns {Ship}
      */
     build(deckCnt) {
         const decks = [];
