@@ -10,8 +10,8 @@ const battleFieldFactory = new BattleFieldFactory(mainContainer, config);
 battleFieldFactory.render("my");
 battleFieldFactory.render("enemy");
 
-const shipFactory = new ShipFactory(new Coordinate(4, 3));
-const ship = shipFactory.build(4, true);
+const shipFactory = new ShipFactory();
+const ship = shipFactory.build(new Coordinate(4, 3), 4, true);
 
 const playerName = "#my";
 ship.decks.forEach(deck => {
