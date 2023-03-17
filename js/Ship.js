@@ -1,9 +1,8 @@
 export class Ship {
     _decks = [];
-
-    // /**
-    //  * @param {Object} objectData
-    //  */
+    /**
+     * @param {Deck[]} decks
+     */
     constructor(decks) {
         this._decks = decks;
     }

@@ -1,43 +1,29 @@
 import { ElementBuilder } from "./ElementBuilder.js";
+import { Coordinate } from "./Coordinate.js";
 
 export class Cell {
-    _x;
-    _y;
-    _elementBuilder;
-
+    _coordinate;
     /**
-     * @param {number} x
-     * @param {number} y
-     * @param {ElementBuilder} elementBuilder
+     * @param {Coordinate} coordinate
      */
-    constructor(x, y, elementBuilder) {
-        this._x = x;
-        this._y = y;
-        this._elementBuilder = elementBuilder;
+    constructor(coordinate) {
+        this._coordinate = coordinate;
     }
 
-    get x() {
-        return this._x;
-    }
-
-    get y() {
-        return this._y;
-    }
-
-    get elementBuilder() {
-        return this._elementBuilder;
+    get coordinate() {
+        return this._coordinate;
     }
 
     /**
      * @returns {HTMLElement}
      */
     create() {
-        const cell = this.elementBuilder
+        const cell = ElementBuilder
             .createElement()
             .setClassName("battle-field-cell")
             .build();
-        cell.setAttribute("x", this.x);
-        cell.setAttribute("y", this.y);
+        cell.setAttribute("x", this.coordinate.x);
+        cell.setAttribute("y", this.coordinate.y);
         return cell;
     }
 }
