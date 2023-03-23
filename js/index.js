@@ -9,8 +9,10 @@ const battleFieldFactory = new BattleFieldFactory(mainContainer, config);
 battleFieldFactory.render("my");
 battleFieldFactory.render("enemy");
 
-// const shipFactory = new ShipFactory();
-// const ship = shipFactory.build(new Coordinate(4, 3), 4, true);
+const shipsArrangeMy = new ShipsArrange(config);
+const shipsMy = shipsArrangeMy.buildedShips();
+shipsArrangeMy.render("#my", shipsMy);
 
-const shipsArrange = new ShipsArrange(config);
-shipsArrange.render();
+const shipsArrangeEnemy = new ShipsArrange(config);
+const shipsEnemy = shipsArrangeEnemy.buildedShips();
+shipsArrangeEnemy.render("#enemy", shipsEnemy);
