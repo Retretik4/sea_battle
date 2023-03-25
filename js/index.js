@@ -10,9 +10,9 @@ battleFieldFactory.render("my");
 battleFieldFactory.render("enemy");
 
 const shipsArrangeMy = new ShipsArrange(config);
-const shipsMy = shipsArrangeMy.buildedShips();
+const shipsMy = shipsArrangeMy.buildShips();
 shipsArrangeMy.render("#my", shipsMy);
 
 const shipsArrangeEnemy = new ShipsArrange(config);
-const shipsEnemy = shipsArrangeEnemy.buildedShips();
+const shipsEnemy = shipsArrangeEnemy.buildShips();
 shipsArrangeEnemy.render("#enemy", shipsEnemy);

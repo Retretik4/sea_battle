@@ -37,7 +37,7 @@ export class ShipsArrange {
     /**
      * @returns {Ship[]}
      */
-    buildedShips() {
+    buildShips() {
         // Створюємо масив поля бою із координатами комірок
         for (let i = 0; i < this.config.lengthOnY; i++) {
             for (let j = 0; j < this.config.lengthOnX; j++) {
@@ -52,9 +52,9 @@ export class ShipsArrange {
         for (let i = deckCnt; i > 0; i--) {
             numShip += 1;
             for (let j = 1; j <= numShip; j++) {
-                const ship = this.check(i);
+                const ship = this.checkBuildShip(i);
                 ships.push(ship);
-                this.checkDelCoord(ship);
+                this.delBusyCoordinate(ship);
             }
         }
         return ships;
@@ -65,20 +65,20 @@ export class ShipsArrange {
      * @param {number} deckCnt
      * @returns {Ship}
      */
-    check(deckCnt) {
-        let horizontal = this.randomTrue();
-        let coordinate = this.control[this.randomNum(this.control.length)];
+    checkBuildShip(deckCnt) {
+        let horizontal = this.getRandomTrue();
+        let coordinate = this.control[this.getRandomNum(this.control.length)];
         let result = true;
         while (result) {
             // Перевірка: човен не повинен вилізти за межі поля бою
             while (((coordinate.x > this.config.lengthOnX - deckCnt) && horizontal === false) || (coordinate.y > this.config.lengthOnY - deckCnt && horizontal === true)) {
-                horizontal = this.randomTrue();
-                coordinate = this.control[this.randomNum(this.control.length)];
+                horizontal = this.getRandomTrue();
+                coordinate = this.control[this.getRandomNum(this.control.length)];
             }
             result = this.checkCoordinate(deckCnt, coordinate, horizontal);
             if (result) {
-                horizontal = this.randomTrue();
-                coordinate = this.control[this.randomNum(this.control.length)];
+                horizontal = this.getRandomTrue();
+                coordinate = this.control[this.getRandomNum(this.control.length)];
             }
         }
         return (new ShipFactory()).build(coordinate, deckCnt, horizontal);
@@ -93,17 +93,15 @@ export class ShipsArrange {
     checkCoordinate(deckCnt, coordinate, horizontal) {
         // Перевірка: човен не повинен налізти на вже існуючі
         if (horizontal === true) {
-            const j = coordinate.x;
             for (let i = coordinate.y; i < coordinate.y + deckCnt; i++) {
-                if (!(this.control.find(coord => coord.x === j && coord.y === i))) {
+                if (!(this.control.find(coord => coord.x === coordinate.x && coord.y === i))) {
                     return true;
                 }
             }
         }
         if (horizontal === false) {
-            const i = coordinate.y;
             for (let j = coordinate.x; j < coordinate.x + deckCnt; j++) {
-                if (!(this.control.find(coord => coord.x === j && coord.y === i))) {
+                if (!(this.control.find(coord => coord.x === j && coord.y === coordinate.y))) {
                     return true;
                 }
             }
@@ -115,7 +113,7 @@ export class ShipsArrange {
      * @param {Ship} ship
      * @returns {Coordinate[]}
      */
-    checkDelCoord(ship) {
+    delBusyCoordinate(ship) {
         // Видалення із масива поля бою координат човна і комірок навколо нього
         ship.decks.forEach(deck => {
             for (let i = deck.coordinate.y - 1; i < deck.coordinate.y + 2; i++) {
@@ -134,7 +132,7 @@ export class ShipsArrange {
      * @param {number} maxNum
      * @returns {number}
      */
-    randomNum(maxNum) {
+    getRandomNum(maxNum) {
         return Math.floor(Math.random() * maxNum);
     }
 
@@ -142,7 +140,7 @@ export class ShipsArrange {
     /**
      * @returns {boolean}
      */
-    randomTrue() {
+    getRandomTrue() {
         return Math.floor(Math.random() * 2) !== 0;
     }
 }
