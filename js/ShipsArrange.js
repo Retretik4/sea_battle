@@ -2,10 +2,11 @@ import { ShipFactory } from "./ShipFactory.js";
 import { Coordinate } from "./Coordinate.js";
 import { Config } from "./Config.js";
 import { Ship } from "./Ship.js";
+import { Deck } from "./Deck.js";
 
 export class ShipsArrange {
     _config;
-    _control = [];
+    _control;
     /**
      * @param {Config} config
      */
@@ -21,12 +22,16 @@ export class ShipsArrange {
         return this._control;
     }
 
+    set control(value) {
+        this._control = value;
+    }
+
     /**
      * @param {string} idPlayerName
-     * @param {Ship[]} shipsAll
+     * @param {Ship[]} ships
      */
-    render(idPlayerName, shipsAll) {
-        shipsAll.forEach(ship => {
+    render(idPlayerName, ships) {
+        ships.forEach(ship => {
             ship.decks.forEach(deck => {
                 const str = `${idPlayerName} .battle-field-cell[x^='${deck.coordinate.x}'][y^='${deck.coordinate.y}']`;
                 document.querySelector(str).appendChild(deck.create());
@@ -38,6 +43,7 @@ export class ShipsArrange {
      * @returns {Ship[]}
      */
     buildShips() {
+        this.control = [];
         // Створюємо масив поля бою із координатами комірок
         for (let i = 0; i < this.config.lengthOnY; i++) {
             for (let j = 0; j < this.config.lengthOnX; j++) {
@@ -46,10 +52,9 @@ export class ShipsArrange {
         }
 
         const ships = [];
-        const deckCnt = 4;
         let numShip = 0;
 
-        for (let i = deckCnt; i > 0; i--) {
+        for (let i = this.config.deckCnt; i > 0; i--) {
             numShip += 1;
             for (let j = 1; j <= numShip; j++) {
                 const ship = this.checkBuildShip(i);
@@ -66,47 +71,50 @@ export class ShipsArrange {
      * @returns {Ship}
      */
     checkBuildShip(deckCnt) {
-        let horizontal = this.getRandomTrue();
-        let coordinate = this.control[this.getRandomNum(this.control.length)];
+        let horizontal = this.generateRandomTrue();
+        let coordinate = this.control[this.generateRandomNum(this.control.length)];
         let result = true;
         while (result) {
             // Перевірка: човен не повинен вилізти за межі поля бою
             while (((coordinate.x > this.config.lengthOnX - deckCnt) && horizontal === false) || (coordinate.y > this.config.lengthOnY - deckCnt && horizontal === true)) {
-                horizontal = this.getRandomTrue();
-                coordinate = this.control[this.getRandomNum(this.control.length)];
+                horizontal = this.generateRandomTrue();
+                coordinate = this.control[this.generateRandomNum(this.control.length)];
             }
-            result = this.checkCoordinate(deckCnt, coordinate, horizontal);
+            result = !this.buildDecks(deckCnt, coordinate, horizontal).length;
             if (result) {
-                horizontal = this.getRandomTrue();
-                coordinate = this.control[this.getRandomNum(this.control.length)];
+                horizontal = this.generateRandomTrue();
+                coordinate = this.control[this.generateRandomNum(this.control.length)];
             }
         }
-        return (new ShipFactory()).build(coordinate, deckCnt, horizontal);
+        return (new ShipFactory()).build(this.buildDecks(deckCnt, coordinate, horizontal));
     }
 
     /**
      * @param {number} deckCnt
      * @param {Coordinate} coordinate
      * @param {boolean} horizontal
-     * @returns {boolean}
+     * @returns {Deck[]}
      */
-    checkCoordinate(deckCnt, coordinate, horizontal) {
+    buildDecks(deckCnt, coordinate, horizontal) {
+        const decks = [];
         // Перевірка: човен не повинен налізти на вже існуючі
         if (horizontal === true) {
             for (let i = coordinate.y; i < coordinate.y + deckCnt; i++) {
+                decks.push(new Deck(new Coordinate(coordinate.x, i)));
                 if (!(this.control.find(coord => coord.x === coordinate.x && coord.y === i))) {
-                    return true;
+                    return [];
                 }
             }
         }
         if (horizontal === false) {
             for (let j = coordinate.x; j < coordinate.x + deckCnt; j++) {
+                decks.push(new Deck(new Coordinate(j, coordinate.y)));
                 if (!(this.control.find(coord => coord.x === j && coord.y === coordinate.y))) {
-                    return true;
+                    return [];
                 }
             }
         }
-        return false;
+        return decks;
     }
 
     /**
@@ -132,7 +140,7 @@ export class ShipsArrange {
      * @param {number} maxNum
      * @returns {number}
      */
-    getRandomNum(maxNum) {
+    generateRandomNum(maxNum) {
         return Math.floor(Math.random() * maxNum);
     }
 
@@ -140,7 +148,7 @@ export class ShipsArrange {
     /**
      * @returns {boolean}
      */
-    getRandomTrue() {
+    generateRandomTrue() {
         return Math.floor(Math.random() * 2) !== 0;
     }
 }

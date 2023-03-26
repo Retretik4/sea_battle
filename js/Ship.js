@@ -1,3 +1,5 @@
+import { Deck } from "./Deck.js";
+
 export class Ship {
     _decks = [];
     /**
