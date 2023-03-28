@@ -1,6 +1,7 @@
 export class Coordinate {
     _x;
     _y;
+
     /**
      * @param {number} x
      * @param {number} y

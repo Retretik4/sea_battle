@@ -16,11 +16,13 @@ module.exports = {
         "import/prefer-default-export": "off",
         "import/extensions": ['error', 'always', { ignorePackages: true }],
         "indent": ["error", 4],
+        "max-len": ["error", { "code": 150, "tabWidth": 4 }],
         "arrow-parens": ["error", "as-needed"],
         "no-unused-expressions": ["error", { "allowShortCircuit": true }],
         "lines-between-class-members":["error", "always", { "exceptAfterSingleLine": true }],
         "no-underscore-dangle": ["error", { "allowAfterThis": true }],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "class-methods-use-this": "off",
         // jsdoc
         "jsdoc/require-returns-description": 0,
         "jsdoc/require-param-description": 0,
