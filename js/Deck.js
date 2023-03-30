@@ -4,6 +4,7 @@ import { ElementBuilder } from "./ElementBuilder.js";
 export class Deck {
     _died;
     _coordinate;
+
     /**
      * @param {Coordinate} coordinate
      */
@@ -16,6 +17,9 @@ export class Deck {
         return this._died;
     }
 
+    /**
+     * @returns {Coordinate}
+     */
     get coordinate() {
         return this._coordinate;
     }

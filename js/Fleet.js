@@ -1,17 +1,29 @@
 import { ShipFactory } from "./ShipFactory.js";
 import { Coordinate } from "./Coordinate.js";
+import { CoordinateFactory } from "./CoordinateFactory.js";
 import { Config } from "./Config.js";
 import { Ship } from "./Ship.js";
+import { DeckFactory } from "./DeckFactory.js";
 import { Deck } from "./Deck.js";
 
-export class ShipsArrange {
+export class Fleet {
     _config;
+    _coordinateFactory;
+    _deckFactory;
+    _shipFactory;
     _control;
+
     /**
      * @param {Config} config
+     * @param {CoordinateFactory} coordinateFactory
+     * @param {DeckFactory} deckFactory
+     * @param {ShipFactory} shipFactory
      */
-    constructor(config) {
+    constructor(config, coordinateFactory, deckFactory, shipFactory) {
         this._config = config;
+        this._coordinateFactory = coordinateFactory;
+        this._deckFactory = deckFactory;
+        this._shipFactory = shipFactory;
     }
 
     get config() {
@@ -26,28 +38,29 @@ export class ShipsArrange {
         this._control = value;
     }
 
-    /**
-     * @param {string} idPlayerName
-     * @param {Ship[]} ships
-     */
-    render(idPlayerName, ships) {
-        ships.forEach(ship => {
-            ship.decks.forEach(deck => {
-                const str = `${idPlayerName} .battle-field-cell[x^='${deck.coordinate.x}'][y^='${deck.coordinate.y}']`;
-                document.querySelector(str).appendChild(deck.create());
-            });
-        });
+    get coordinateFactory() {
+        return this._coordinateFactory;
+    }
+
+    get deckFactory() {
+        return this._deckFactory;
+    }
+
+    get shipFactory() {
+        return this._shipFactory;
     }
 
     /**
+     * @param {string} idPlayerName
+     * @param {boolean} isRender
      * @returns {Ship[]}
      */
-    buildShips() {
+    generate(idPlayerName, isRender) {
         this.control = [];
         // Створюємо масив поля бою із координатами комірок
         for (let i = 0; i < this.config.lengthOnY; i++) {
             for (let j = 0; j < this.config.lengthOnX; j++) {
-                this.control.push(new Coordinate(i, j));
+                this.control.push(this.coordinateFactory.build(i, j));
             }
         }
 
@@ -57,61 +70,83 @@ export class ShipsArrange {
         for (let i = this.config.deckCnt; i > 0; i--) {
             numShip += 1;
             for (let j = 1; j <= numShip; j++) {
-                const ship = this.checkBuildShip(i);
+                const ship = this.generateShip(i);
                 ships.push(ship);
-                this.delBusyCoordinate(ship);
+                this.removeOccupiedCoordinate(ship);
             }
         }
+
+        if (isRender) {
+            ships.forEach(ship => {
+                ship.decks.forEach(deck => {
+                    const str = `${idPlayerName} .battle-field-cell[x^='${deck.coordinate.x}'][y^='${deck.coordinate.y}']`;
+                    document.querySelector(str).appendChild(deck.create());
+                });
+            });
+        }
+
         return ships;
     }
 
-    // Метод відбракування із масиву поля боя координат, які не відповідають умовам
     /**
      * @param {number} deckCnt
      * @returns {Ship}
      */
-    checkBuildShip(deckCnt) {
-        let horizontal = this.generateRandomTrue();
-        let coordinate = this.control[this.generateRandomNum(this.control.length)];
-        let result = true;
-        while (result) {
+    generateShip(deckCnt) {
+        let horizontal;
+        let coordinate;
+        let decks = [];
+
+        do {
+            horizontal = Fleet.generateRandomTrue();
+            coordinate = this.control[Fleet.generateRandomNum(this.control.length)];
             // Перевірка: човен не повинен вилізти за межі поля бою
-            while (((coordinate.x > this.config.lengthOnX - deckCnt) && horizontal === false) || (coordinate.y > this.config.lengthOnY - deckCnt && horizontal === true)) {
-                horizontal = this.generateRandomTrue();
-                coordinate = this.control[this.generateRandomNum(this.control.length)];
+            while (this.isInvalidCoordinate(coordinate, deckCnt, horizontal)) {
+                horizontal = Fleet.generateRandomTrue();
+                coordinate = this.control[Fleet.generateRandomNum(this.control.length)];
             }
-            result = !this.buildDecks(deckCnt, coordinate, horizontal).length;
-            if (result) {
-                horizontal = this.generateRandomTrue();
-                coordinate = this.control[this.generateRandomNum(this.control.length)];
-            }
-        }
-        return (new ShipFactory()).build(this.buildDecks(deckCnt, coordinate, horizontal));
+
+            decks = this.generateShipDecks(coordinate, deckCnt, horizontal);
+        } while (decks.length === 0);
+
+        return this.shipFactory.build(decks);
     }
 
     /**
-     * @param {number} deckCnt
      * @param {Coordinate} coordinate
+     * @param {number} deckCnt
+     * @param {boolean} horizontal
+     * @returns {boolean}
+     */
+    isInvalidCoordinate(coordinate, deckCnt, horizontal) {
+        if (horizontal === true) {
+            return coordinate.y > (this.config.lengthOnY - deckCnt);
+        }
+        return coordinate.x > (this.config.lengthOnX - deckCnt);
+    }
+
+    /**
+     * @param {Coordinate} coordinate
+     * @param {number} deckCnt
      * @param {boolean} horizontal
      * @returns {Deck[]}
      */
-    buildDecks(deckCnt, coordinate, horizontal) {
+    generateShipDecks(coordinate, deckCnt, horizontal) {
         const decks = [];
         // Перевірка: човен не повинен налізти на вже існуючі
         if (horizontal === true) {
             for (let i = coordinate.y; i < coordinate.y + deckCnt; i++) {
-                decks.push(new Deck(new Coordinate(coordinate.x, i)));
                 if (!(this.control.find(coord => coord.x === coordinate.x && coord.y === i))) {
                     return [];
                 }
+                decks.push(this.deckFactory.build(this.coordinateFactory.build(coordinate.x, i)));
             }
-        }
-        if (horizontal === false) {
-            for (let j = coordinate.x; j < coordinate.x + deckCnt; j++) {
-                decks.push(new Deck(new Coordinate(j, coordinate.y)));
-                if (!(this.control.find(coord => coord.x === j && coord.y === coordinate.y))) {
+        } else {
+            for (let i = coordinate.x; i < coordinate.x + deckCnt; i++) {
+                if (!(this.control.find(coord => coord.x === i && coord.y === coordinate.y))) {
                     return [];
                 }
+                decks.push(this.deckFactory.build(this.coordinateFactory.build(i, coordinate.y)));
             }
         }
         return decks;
@@ -119,9 +154,8 @@ export class ShipsArrange {
 
     /**
      * @param {Ship} ship
-     * @returns {Coordinate[]}
      */
-    delBusyCoordinate(ship) {
+    removeOccupiedCoordinate(ship) {
         // Видалення із масива поля бою координат човна і комірок навколо нього
         ship.decks.forEach(deck => {
             for (let i = deck.coordinate.y - 1; i < deck.coordinate.y + 2; i++) {
@@ -132,7 +166,6 @@ export class ShipsArrange {
                 }
             }
         });
-        return this.control;
     }
 
     // Метод надання випадкового числа від 0 до maxNum-1
@@ -140,7 +173,7 @@ export class ShipsArrange {
      * @param {number} maxNum
      * @returns {number}
      */
-    generateRandomNum(maxNum) {
+    static generateRandomNum(maxNum) {
         return Math.floor(Math.random() * maxNum);
     }
 
@@ -148,7 +181,7 @@ export class ShipsArrange {
     /**
      * @returns {boolean}
      */
-    generateRandomTrue() {
+    static generateRandomTrue() {
         return Math.floor(Math.random() * 2) !== 0;
     }
 }
