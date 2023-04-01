@@ -51,11 +51,9 @@ export class Fleet {
     }
 
     /**
-     * @param {string} idPlayerName
-     * @param {boolean} isRender
      * @returns {Ship[]}
      */
-    generate(idPlayerName, isRender) {
+    generate() {
         this.control = [];
         // Створюємо масив поля бою із координатами комірок
         for (let i = 0; i < this.config.lengthOnY; i++) {
@@ -74,15 +72,6 @@ export class Fleet {
                 ships.push(ship);
                 this.removeOccupiedCoordinate(ship);
             }
-        }
-
-        if (isRender) {
-            ships.forEach(ship => {
-                ship.decks.forEach(deck => {
-                    const str = `${idPlayerName} .battle-field-cell[x^='${deck.coordinate.x}'][y^='${deck.coordinate.y}']`;
-                    document.querySelector(str).appendChild(deck.create());
-                });
-            });
         }
 
         return ships;

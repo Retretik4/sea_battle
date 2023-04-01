@@ -3,6 +3,7 @@ import { Config } from "./Config.js";
 import { CoordinateFactory } from "./CoordinateFactory.js";
 import { DeckFactory } from "./DeckFactory.js";
 import { ShipFactory } from "./ShipFactory.js";
+import { FleetRenderer } from "./FleetRenderer.js";
 import { Fleet } from "./Fleet.js";
 
 const config = new Config();
@@ -17,5 +18,10 @@ const deckFactory = new DeckFactory();
 const shipFactory = new ShipFactory();
 
 const fleet = new Fleet(config, coordinateFactory, deckFactory, shipFactory);
-fleet.generate("#my", true);
-fleet.generate("#enemy", true);
+const fleetRenderer = new FleetRenderer();
+
+const fleetMy = fleet.generate();
+const fleetEnemy = fleet.generate();
+
+fleetRenderer.render("#my", fleetMy);
+fleetRenderer.render("#enemy", fleetEnemy);
