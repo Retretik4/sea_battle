@@ -10,16 +10,52 @@
     width: 20px;
 }
 
+.miss {
+    /*margin: 0px;*/
+    /*padding: 0px;*/
+    height: 19px;
+    width: 19px;
+    background-color: black;
+    /*border-radius: 50%;*/
+    /*padding-top: 5px;*/
+    /*padding-left: 5px;*/
+    clip-path: circle(15%);
+    /*vertical-align: center;*/
+    /*display: flex;*/
+    /*line-height: 20px;*/
+    /*text-align: center;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    border: 1px solid rgb(52, 146, 146);
+    /*border: 1px solid black;*/
+}
+
+.wound {
+    width: 19px;
+    height: 19px;
+    background: red;
+    clip-path: polygon(0% 100%, 50% 63%, 100% 100%, 63% 50%, 100% 0%, 50% 37%, 0% 0%, 37% 50%);
+}
+
+.no-attack {
+    /*margin: 0;*/
+    /*padding: 0;*/
+    background-color: blue;
+    height: 19px;
+    width: 19px;
+    clip-path: circle(5%);
+}
+
 #main {
     display: grid;
     margin: 0;
     padding: 0;
     height: 300px;
     width: 700px;
-    grid-template: repeat(1, 100%) / repeat(2, 50%);
+    grid-template: repeat(2, 100%) / repeat(2, 50%);
 }
 
-#my, #enemy {
+#my, #enemy, #my-enemy, #enemy-my {
     display: grid;
     background-color: #dfeec8;
     margin: 0;
@@ -31,8 +67,18 @@
 }
 
 #enemy {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+#my-enemy {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+}
+
+#enemy-my {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
 }
 
 /* battle-field */
